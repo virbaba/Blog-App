@@ -45,6 +45,7 @@ export const signin = async (req, res, next) => {
     if (!validUser) {
       return next(errorHandler(404, 'User not found'));
     }
+    // comparing the encrypted password by compareSync
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
       return next(errorHandler(400, 'Invalid password'));
@@ -53,7 +54,8 @@ export const signin = async (req, res, next) => {
       { id: validUser._id, isAdmin: validUser.isAdmin },
       process.env.JWT_SECRET
     );
-
+   
+    // hiding the password in returnable object when user successfully sign in
     const { password: pass, ...rest } = validUser._doc;
 
     res
