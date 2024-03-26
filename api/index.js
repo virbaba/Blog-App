@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js'
+import authRotues from './routes/auth.route.js';
 
 dotenv.config();
 const app = express();
@@ -12,10 +13,13 @@ mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connection error', err);
 });
 
+// to allow json data
+app.use(express.json());
 
 app.listen(3000, ()=>{
     console.log("Server running on 3000");
 });
 
 app.use('/api/user', userRoutes);
+app.use('/api/auth', authRotues);
 
