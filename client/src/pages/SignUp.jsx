@@ -71,6 +71,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </div>
+
             <div>
               <Label value='Your email' />
               <TextInput
@@ -80,6 +81,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </div>
+
             <div>
               <Label value='Your password' />
               <TextInput
@@ -89,6 +91,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </div>
+
             <Button
               gradientDuoTone='purpleToPink'
               type='submit'
@@ -105,6 +108,7 @@ export default function SignUp() {
             </Button>
             {/* <OAuth /> */}
           </form>
+          
           <div className='flex gap-2 text-sm mt-5'>
             <span>Have an account?</span>
             <Link to='/sign-in' className='text-blue-500'>
