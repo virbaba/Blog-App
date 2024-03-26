@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js'
 import authRotues from './routes/auth.route.js';
 
-dotenv.config();
 const app = express();
+dotenv.config();
 
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log("MongoDb is connected")
