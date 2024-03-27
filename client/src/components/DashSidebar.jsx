@@ -7,6 +7,7 @@ import {
   HiAnnotation,
   HiChartPie,
 } from "react-icons/hi";
+
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { signoutSuccess } from "../redux/user/userSlice";
@@ -47,6 +48,7 @@ export default function DashSidebar() {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-1">
+          {/* non-admin dashboard */}
           {currentUser && currentUser.isAdmin && (
             <Link to="/dashboard?tab=dash">
               <Sidebar.Item
@@ -58,6 +60,8 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+
+          {/* Profile Tab */}
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
@@ -69,6 +73,8 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+
+            {/* Posts tab */}
           {currentUser.isAdmin && (
             <Link to="/dashboard?tab=posts">
               <Sidebar.Item
@@ -80,6 +86,8 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+
+          {/* User tab */}
           {currentUser.isAdmin && (
             <>
               <Link to="/dashboard?tab=users">
@@ -102,6 +110,8 @@ export default function DashSidebar() {
               </Link>
             </>
           )}
+
+          {/* Sign-out option */}
           <Sidebar.Item
             icon={HiArrowSmRight}
             className="cursor-pointer"

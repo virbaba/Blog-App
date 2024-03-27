@@ -34,14 +34,20 @@ export const create = async (req, res, next) => {
 
 export const getposts = async (req, res, next) => {
   try {
+    // indexing where the post start default is 0
     const startIndex = parseInt(req.query.startIndex) || 0;
+    // maximum limit to display post
     const limit = parseInt(req.query.limit) || 9;
+    // sortign direction ascending
     const sortDirection = req.query.order === 'asc' ? 1 : -1;
+
+    // find the post according to query like given user-id, category slug post-id and search-term of title and content
     const posts = await Post.find({
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
       ...(req.query.slug && { slug: req.query.slug }),
       ...(req.query.postId && { _id: req.query.postId }),
+      // this one help to search by keyword of title or content
       ...(req.query.searchTerm && {
         $or: [
           { title: { $regex: req.query.searchTerm, $options: 'i' } },
