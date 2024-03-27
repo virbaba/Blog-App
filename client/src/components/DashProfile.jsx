@@ -10,6 +10,7 @@ import {
 } from 'firebase/storage';
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
  
 import {
   updateStart,
