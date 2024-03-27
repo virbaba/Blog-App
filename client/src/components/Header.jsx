@@ -1,11 +1,20 @@
 import React from "react";
-import { Button, Navbar, TextInput, Dropdown } from "flowbite-react";
+import { Avatar, Button, Navbar, TextInput, Dropdown } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { signoutSuccess } from "../redux/user/userSlice";
 
 function Header() {
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const path = useLocation().pathname;
+  
+  const handleSignout = () => {
+    dispatch(signoutSuccess());
+  }
   return (
     <Navbar className="border-b-2">
       <Link
@@ -36,27 +45,35 @@ function Header() {
           <FaMoon />
         </Button>
 
-        <Dropdown arrowIcon={false} inline>
-          <Dropdown.Header>
-            <span className="block text-sm">Virender</span>
-            <span className="block text-sm font-medium truncate">
-              kcribca28134@gmail.com
-            </span>
-          </Dropdown.Header>
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt="user" img={currentUser.profilePicture} rounded />
+            }
+          >
 
-          <Link to={"/dashboard?tab=profile"}>
-            <Dropdown.Item>Profile</Dropdown.Item>
+            <Dropdown.Header>
+              <span className="block text-sm">@{currentUser.username}</span>
+              <span className="block text-sm font-medium truncate">
+                {currentUser.email}
+              </span>
+            </Dropdown.Header>
+
+            <Link to={"/dashboard?tab=profile"}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to="/sign-in">
+            <Button gradientDuoTone="purpleToBlue" outline>
+              Sign In
+            </Button>
           </Link>
-
-          <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
-        </Dropdown>
-
-        <Link to="/sign-in">
-          <Button gradientDuoTone="purpleToBlue" outline>
-            Sign In
-          </Button>
-        </Link>
+        )}
 
         <Navbar.Toggle />
       </div>
@@ -74,6 +91,7 @@ function Header() {
           <Link to="/projects">Projects</Link>
         </Navbar.Link>
       </Navbar.Collapse>
+      
     </Navbar>
   );
 }
