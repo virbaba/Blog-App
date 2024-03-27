@@ -124,6 +124,7 @@ export default function DashProfile() {
         },
         body: JSON.stringify(formData),
       });
+      
       const data = await res.json();
       if (!res.ok) {
         dispatch(updateFailure(data.message));
