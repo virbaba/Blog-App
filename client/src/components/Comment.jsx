@@ -10,6 +10,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
   const { currentUser } = useSelector((state) => state.user);
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -49,8 +50,10 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
       console.log(error.message);
     }
   };
+
   return (
     <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
+      {/* image-section of comments */}
       <div className='flex-shrink-0 mr-3'>
         <img
           className='w-10 h-10 rounded-full bg-gray-200'
@@ -58,6 +61,8 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
           alt={user.username}
         />
       </div>
+
+      {/* user name & comment date with each comment */}
       <div className='flex-1'>
         <div className='flex items-center mb-1'>
           <span className='font-bold mr-1 text-xs truncate'>
@@ -67,6 +72,8 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
             {moment(comment.createdAt).fromNow()}
           </span>
         </div>
+
+      {/* Comment Editing condition */}
         {isEditing ? (
           <>
             <Textarea
@@ -75,7 +82,8 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               onChange={(e) => setEditedContent(e.target.value)}
             />
             <div className='flex justify-end gap-2 text-xs'>
-              <Button
+              {/* Save button */}
+              <Button 
                 type='button'
                 size='sm'
                 gradientDuoTone='purpleToBlue'
@@ -83,6 +91,8 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               >
                 Save
               </Button>
+
+              {/* Cancel button */}
               <Button
                 type='button'
                 size='sm'
@@ -92,11 +102,15 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               >
                 Cancel
               </Button>
+              
             </div>
           </>
         ) : (
           <>
+          {/* Display Comment content */}
             <p className='text-gray-500 pb-2'>{comment.content}</p>
+
+          {/* Like Edit Delete section */}
             <div className='flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2'>
               <button
                 type='button'
@@ -109,12 +123,16 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               >
                 <FaThumbsUp className='text-sm' />
               </button>
+
+              {/* Displaying number of likes */}
               <p className='text-gray-400'>
                 {comment.numberOfLikes > 0 &&
                   comment.numberOfLikes +
                     ' ' +
                     (comment.numberOfLikes === 1 ? 'like' : 'likes')}
               </p>
+
+            {/* This section only display when user is admin & currnet user == comment.user */}
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
                   <>

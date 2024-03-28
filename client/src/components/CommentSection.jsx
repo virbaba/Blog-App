@@ -63,11 +63,14 @@ export default function CommentSection({ postId }) {
         navigate('/sign-in');
         return;
       }
+
       const res = await fetch(`/api/comment/likeComment/${commentId}`, {
         method: 'PUT',
       });
+
       if (res.ok) {
         const data = await res.json();
+        
         setComments(
           comments.map((comment) =>
             comment._id === commentId
@@ -114,6 +117,7 @@ export default function CommentSection({ postId }) {
 
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
+      {/* check the user is sing-in or not */}
       {currentUser ? (
         <div className='flex items-center gap-1 my-5 text-gray-500 text-sm'>
           <p>Signed in as:</p>
@@ -138,6 +142,7 @@ export default function CommentSection({ postId }) {
         </div>
       )}
       
+      {/* Comment form */}
       {currentUser && (
         <form
           onSubmit={handleSubmit}
@@ -165,6 +170,7 @@ export default function CommentSection({ postId }) {
           )}
         </form>
       )}
+
       {comments.length === 0 ? (
         <p className='text-sm my-5'>No comments yet!</p>
       ) : (
