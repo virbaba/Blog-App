@@ -72,20 +72,32 @@ export default function DashUsers() {
       {currentUser.isAdmin && users.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
+            
             <Table.Head>
+
               <Table.HeadCell>Date created</Table.HeadCell>
+
               <Table.HeadCell>User image</Table.HeadCell>
+
               <Table.HeadCell>Username</Table.HeadCell>
+
               <Table.HeadCell>Email</Table.HeadCell>
+
               <Table.HeadCell>Admin</Table.HeadCell>
+
               <Table.HeadCell>Delete</Table.HeadCell>
+
             </Table.Head>
             {users.map((user) => (
               <Table.Body className='divide-y' key={user._id}>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+
+                  {/* Created At */}
                   <Table.Cell>
                     {new Date(user.createdAt).toLocaleDateString()}
                   </Table.Cell>
+
+                  {/* Profile Picture */}
                   <Table.Cell>
                     <img
                       src={user.profilePicture}
@@ -93,8 +105,14 @@ export default function DashUsers() {
                       className='w-10 h-10 object-cover bg-gray-500 rounded-full'
                     />
                   </Table.Cell>
+
+                  {/* Username */}
                   <Table.Cell>{user.username}</Table.Cell>
+
+                  {/* User Email */}
                   <Table.Cell>{user.email}</Table.Cell>
+
+                  {/* Is Admin column */}
                   <Table.Cell>
                     {user.isAdmin ? (
                       <FaCheck className='text-green-500' />
@@ -102,6 +120,8 @@ export default function DashUsers() {
                       <FaTimes className='text-red-500' />
                     )}
                   </Table.Cell>
+
+                  {/* Delete link */}
                   <Table.Cell>
                     <span
                       onClick={() => {
@@ -113,10 +133,13 @@ export default function DashUsers() {
                       Delete
                     </span>
                   </Table.Cell>
+
                 </Table.Row>
               </Table.Body>
             ))}
           </Table>
+
+          {/* Show more user button */}
           {showMore && (
             <button
               onClick={handleShowMore}
@@ -127,8 +150,10 @@ export default function DashUsers() {
           )}
         </>
       ) : (
-        <p>You have no users yet!</p>
+        <p className='text-center'>You have no users yet!</p>
       )}
+
+      {/* Confirmation modal to delete user */}
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
@@ -153,6 +178,7 @@ export default function DashUsers() {
           </div>
         </Modal.Body>
       </Modal>
+
     </div>
   );
 }
