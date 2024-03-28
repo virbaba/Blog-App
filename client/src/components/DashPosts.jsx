@@ -19,6 +19,7 @@ export default function DashPosts() {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
+          // if post count less than 9 hide showMore button
           if (data.posts.length < 9) {
             setShowMore(false);
           }
@@ -39,6 +40,7 @@ export default function DashPosts() {
       const res = await fetch(
         `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
+      
       const data = await res.json();
       if (res.ok) {
         setUserPosts((prev) => [...prev, ...data.posts]);
