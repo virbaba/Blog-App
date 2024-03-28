@@ -40,7 +40,7 @@ export default function DashPosts() {
       const res = await fetch(
         `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
-      
+
       const data = await res.json();
       if (res.ok) {
         setUserPosts((prev) => [...prev, ...data.posts]);
@@ -62,7 +62,9 @@ export default function DashPosts() {
           method: 'DELETE',
         }
       );
+
       const data = await res.json();
+
       if (!res.ok) {
         console.log(data.message);
       } else {
@@ -100,10 +102,10 @@ export default function DashPosts() {
 
             </Table.Head>
 
-            {userPosts.map((post) => (
+            {userPosts.map((post, index) => (
               <Table.Body className='divide-y'>
 
-                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800' key={index}>
 
                 {/* Updated date */}
                   <Table.Cell>
@@ -173,8 +175,9 @@ export default function DashPosts() {
           )}
         </>
       ) : (
-        <p>You have no posts yet!</p>
+        <p className="text-center">You have no posts yet!</p>
       )}
+      {/* Show warning modal */}
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
