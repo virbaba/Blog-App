@@ -214,15 +214,22 @@ export default function DashboardComp() {
           </Button>
         </div>
         <Table hoverable>
+
           <Table.Head>
+
             <Table.HeadCell>Post image</Table.HeadCell>
             <Table.HeadCell>Post Title</Table.HeadCell>
             <Table.HeadCell>Category</Table.HeadCell>
+
           </Table.Head>
+
           {posts &&
             posts.map((post) => (
+
               <Table.Body key={post._id} className="divide-y">
+
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+
                   <Table.Cell>
                     <img
                       src={post.image}
@@ -230,13 +237,20 @@ export default function DashboardComp() {
                       className="w-14 h-10 rounded-md bg-gray-500"
                     />
                   </Table.Cell>
+
                   <Table.Cell className="w-96">{post.title}</Table.Cell>
+
                   <Table.Cell className="w-5">{post.category}</Table.Cell>
+
                 </Table.Row>
+
               </Table.Body>
+
             ))}
+
         </Table>
       </div>
+      
     </div>
   );
 }
