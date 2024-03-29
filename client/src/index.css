@@ -39,3 +39,10 @@ body{
   .dark .post-content a {
     color: red;
   }
+
+  @media (max-width: 495px) {
+    .r-usr-cmnt {
+        flex-wrap: wrap;
+    }
+}
+
